@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>takoja.fi - Elokuvat</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+</head>
+<body>
+
+<h1>Elokuvalistaus</h1>
+
+<div style="padding:20px 0">
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Kirjaudu ulos" class=""/>
+	</form>
+</div>
+
+<table>	
+	<tr>
+	    
+	    <th class="paa">Otsikko</th>
+	    <th>Ohjaaja</th>
+	    <th><a th:href="@{/kategorialistaus}">Luokka</a></th>
+	    <th>IMDb</th>
+	    <th>Vuosi</th>
+	    <th><a th:href="@{/formaattilistaus}">Formaatti</a></th>
+	    <th>Kuva</th>
+	    <th></th> <!-- Poista-linkin sarake -->
+	    <th></th> <!-- Muokkaa-linkin sarake -->
+	</tr>
+	<tr th:each = "elokuva : ${elokuvat}">
+    		
+    		<td class="paa" th:text="${elokuva.otsikko}"></td>
+    		<td class="paa" th:text="${elokuva.ohjaaja}"></td>
+    		<td class="paa" th:text="${elokuva.kategoria.kategorianimi}"></td>
+    		<td class="paa" > <a th:href="${elokuva.imdb}" target="_blank">Linkki</a></td>
+    		<td class="paa" th:text="${elokuva.vuosi}"></td>
+    		<td class="paa" th:text="${elokuva.formaatti.formaattinimi}"></td>
+    		<td class="paa" >Tähän kuva</td>
+    		<!-- <td th:src="*{'data:image/png;base64,'+tiedosto}" th:height="100"></td> -->
+    		<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
+    			<form th:action="@{/poista/{id}(id=${elokuva.id})}">
+		    		<button type="submit">Poista</button>
+		    	</form>
+		    </td>
+    		<td class="paa" >
+    			<form th:action="@{/muokkaa/{id}(id=${elokuva.id})}">
+    				<button type="submit">Muokkaa</button>
+    			</form>
+    		</td>	
+    </tr>
+</table>
+
+<form action="/lisaa">
+	<button type="submit">Lisää elokuva</button>
+</form>
+    
+</body>
+</html>

@@ -1,0 +1,59 @@
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS kategoria; 
+DROP TABLE IF EXISTS elokuva; 
+DROP TABLE IF EXISTS kayttaja;
+DROP TABLE IF EXISTS formaatti;
+SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE kategoria
+(kategoriaid BIGINT NOT NULL AUTO_INCREMENT 
+,kategorianimi VARCHAR(50) NOT NULL
+,PRIMARY KEY (kategoriaid)
+);
+
+CREATE TABLE formaatti
+(formaattiid BIGINT NOT NULL AUTO_INCREMENT 
+,formaattinimi VARCHAR(50) NOT NULL
+,PRIMARY KEY (formaattiid)
+);
+
+
+CREATE TABLE elokuva (
+id BIGINT NOT NULL AUTO_INCREMENT
+, otsikko VARCHAR(100) NOT NULL
+, ohjaaja VARCHAR(50) NOT NULL
+, vuosi INT
+, imdb VARCHAR(250)
+, kuva BLOB
+, kategoriaid BIGINT
+, formaattiid BIGINT
+, PRIMARY KEY (id)
+, FOREIGN KEY (kategoriaid) REFERENCES kategoria(kategoriaid)
+, FOREIGN KEY (formaattiid) REFERENCES formaatti(formaattiid));
+
+
+CREATE TABLE kayttaja
+(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+, kayttajanimi VARCHAR(250) NOT NULL
+, salasana VARCHAR(250) NOT NULL
+, rooli VARCHAR(20) NOT NULL);
+
+INSERT INTO kategoria (kategorianimi) VALUES ('Jännitys'), ('Draama'), ('Seikkailu'), ('Fantasia'), ('Scifi');
+
+INSERT INTO formaatti (formaattinimi) VALUES ('DVD'), ('BD'), ('BD + DVD'), ('4k');
+
+INSERT INTO elokuva (otsikko, ohjaaja, kategoriaid, imdb, vuosi, formaattiid, kuva) 
+VALUES ('Yksi lensi yli käenpesän', 'Milos Forman', 2, 'https://www.imdb.com/title/tt0073486/', 1975, 1, 1)
+, ('Valerian','Luc Besson', 5, 'https://www.imdb.com/title/tt2239822/', 2017, 2, 1)
+, ('Harry Potter ja kuoleman varjelukset, osa 1','David Yates', 4, 'https://www.imdb.com/title/tt0926084/', 2010, 3, 1)
+, ('Big Lebowski','Joel Coen', 3, 'https://www.imdb.com/title/tt0118715/', 1998, 2, 1);
+
+INSERT INTO kayttaja (kayttajanimi, salasana, rooli) 
+VALUES ("niko", "$2a$10$XCECEt0us5QAmu/0GDy5.eDZeQEOdLQtv4MmwQNQSKmgj0vFeTfVm", "PAAKAYTTAJA") 
+, ("minna", "$2a$10$dRhrCtnt91F/t8MdGD04GuTKOIPG0X.aQwu4xemosd7qtz0dAUETm", "KAYTTAJA");
+
+
+SELECT * FROM elokuva;
+SELECT * FROM kategoria;
+SELECT * FROM formaatti;
+SELECT * FROM kayttaja;

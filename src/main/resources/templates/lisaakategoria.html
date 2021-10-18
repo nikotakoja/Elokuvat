@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>takoja.fi - Lisää kategoria</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+</head>
+<body>
+	<h1>Lisää kategoria</h1>
+	
+		<form th:object="${kategoria}" th:action="@{ktallenna}" action="#" method="post" enctype="multipart/form-data">
+		
+		  	<label for="kotsikko">Kategorian nimi</label>
+			<input type="text" id="kotsikko" th:field="*{kategorianimi}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<input type="submit" value="Tallenna"></input>
+		</form>
+
+
+</body>
+</html>

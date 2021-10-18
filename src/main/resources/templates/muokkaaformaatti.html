@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>takoja.fi - Muokkaa formaattia</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+</head>
+<body>
+	<h1>Muokkaa formaattia</h1>
+	
+		<form th:object="${formaatti}" th:action="@{/fmuokkaa/{id}(id=${formaatti.formaattiid})}" action="#" method="post" enctype="multipart/form-data">
+		
+		  	<label for="fotsikko">Formaatti</label>
+			<input type="text" id="formaattinimi" th:field="*{formaattinimi}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  				
+			<input type="submit" value="Tallenna"></input>
+		</form>
+
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>takoja.fi - Formaatit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+</head>
+<body>
+
+<h1>Formaattilistaus</h1>
+
+<div style="padding:20px 0">
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Kirjaudu ulos" class=""/>
+	</form>
+</div>
+
+<table>	
+	<tr>
+	    
+	    <th class="paa">Formaatti</th>
+	</tr>
+	<tr th:each = "formaatti : ${formaatti}">
+    		<td class="paa" th:text="${formaatti.formaattinimi}"></td>
+    		<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
+    			<form th:action="@{/fpoista/{id}(id=${formaatti.formaattiid})}">
+		    		<button type="submit">Poista</button>
+		    	</form>
+		    </td>
+    		<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
+    			<form th:action="@{/fmuokkaa/{id}(id=${formaatti.formaattiid})}">
+    				<button type="submit">Muokkaa</button>
+    			</form>
+    		</td>	
+    </tr>
+</table>
+
+<form sec:authorize="hasAuthority('PAAKAYTTAJA')" action="/flisaa">
+	<button type="submit">Lisää formaatti</button>
+</form>
+    
+</body>
+</html>
