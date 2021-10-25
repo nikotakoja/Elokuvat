@@ -1,14 +1,14 @@
 package fi.takoja.Elokuvat.domain;
 
-import java.util.Arrays;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Elokuva {
@@ -16,7 +16,18 @@ public class Elokuva {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private String otsikko, ohjaaja, imdb;
+	
+	@NotEmpty(message = "Elokuvan nimi puuttuu")
+	@Size(max=100)
+	private String otsikko;
+	
+	@Size(min=1, max=50)
+	private String ohjaaja;
+	
+	@Size(min=1, max=250)
+	private String imdb;
+	
+	@NotNull
 	private int vuosi;
 		
 	@ManyToOne

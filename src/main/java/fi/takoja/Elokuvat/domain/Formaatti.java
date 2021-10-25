@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Formaatti {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long formaattiid;
 	private String formaattinimi;
 	
@@ -28,6 +28,11 @@ public class Formaatti {
 	public Formaatti(String formaattinimi) {
 		super();
 		this.formaattinimi = formaattinimi;
+	}
+	
+	public Formaatti(long formaattiid) {
+		super();
+		this.formaattiid = formaattiid;
 	}
 	
 	public Formaatti(long formaattiid, String formaattinimi, List<Elokuva> elokuvat) {

@@ -1,51 +1,62 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>takoja.fi - Lisää elokuva</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+<title>takoja.fi - Lisää elokuva</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/tyylit.css"
+	th:href="@{css/tyylit.css}" />
 </head>
 <body>
-	<h1>Lisää kirja</h1>
-	
-		<form th:object="${elokuva}" th:action="@{tallenna}" action="#" method="post" enctype="multipart/form-data">
-		
-		  	<label for="eotsikko">Otsikko</label>
-			<input type="text" id="eotsikko" th:field="*{otsikko}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-		  	
-		  	<label for="eohjaaja">Ohjaaja</label>
-			<input type="text" id="eohjaaja" th:field="*{ohjaaja}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="kkategoria">Luokka</label>
-			<select id="kkategoria" th:field="*{kategoria}">
-       			<option th:each="kategoria: ${luokat}" th:value="${kategoria.kategoriaid}" th:text="${kategoria.kategorianimi}"></option>
-    		</select>
-    		<div style="clear: both; display: block; height: 10px;"></div>
-		  	
-		  	<label for="eimdb">IMDb</label>
-			<input type="text" id="eimdb" th:field="*{imdb}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-		  	<label for="evuosi">Vuosi</label>
-			<input type="text" id="evuosi" th:field="*{vuosi}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="eformaatti">Formaatti</label>
-			<select id="eformaatti" th:field="*{formaatti}">
-       			<option th:each="formaatti: ${formaatit}" th:value="${formaatti.formaattiid}" th:text="${formaatti.formaattinimi}"></option>
-    		</select>
-    		<div style="clear: both; display: block; height: 10px;"></div>
-	
-			<label for="ekuva">Kuva</label>
-			<!-- <input type="file" id="ekuva" th:field="*{tiedosto}" /> -->
-			<!-- <input type="file" id="ekuva" accept="image/png, image/jpeg"  th:field="*{tiedosto}" /> -->
+	<h1>Lisää elokuva</h1>
 
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<input type="submit" value="Tallenna"></input>
-		</form>
+	<form th:object="${elokuva}" th:action="@{tallenna}" action="#"
+		method="post" enctype="multipart/form-data">
+
+		<table>
+			<tr>
+				<td><label for="eotsikko">Otsikko</label></td>
+				<td><input type="text" id="eotsikko" th:field="*{otsikko}" /></td>
+				<td th:if="${#fields.hasErrors('otsikko')}" th:errors="*{otsikko}"></td>
+			</tr>
+			<tr>
+				<td><label for="eohjaaja">Ohjaaja</label></td>
+				<td><input type="text" id="eohjaaja" th:field="*{ohjaaja}" /></td>
+			</tr>
+			<tr>
+				<td><label for="kkategoria">Luokka</label></td>
+				<td><select id="kkategoria" th:field="*{kategoria}">
+						<option th:each="kategoria: ${luokat}"
+							th:value="${kategoria.kategoriaid}"
+							th:text="${kategoria.kategorianimi}"></option>
+					</select></td>
+			</tr>
+			<tr>
+				<td><label for="eimdb">IMDb</label></td>
+				<td><input type="text" id="eimdb" th:field="*{imdb}" /></td>
+			</tr>
+			<tr>
+				<td><label for="evuosi">Vuosi</label></td>
+				<td><input type="text" id="evuosi" th:field="*{vuosi}" /></td>
+				<!-- <td th:if="${#fields.hasErrors(’vuosi')}" th:errors="*{vuosi}">Virheellinen vuosiluku (4 numeroa)</td> -->
+				<td th:if="${#fields.hasErrors('vuosi')}" th:errors="*{vuosi}">Vuosi väärin</td>
+			</tr>
+			<tr>
+				<td><label for="eformaatti">Formaatti</label></td>
+				<td>
+				<select id="eformaatti" th:field="*{formaatti}">
+					<option th:each="formaatti: ${formaatit}" th:value="${formaatti.formaattiid}" th:text="${formaatti.formaattinimi}"></option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="ekuva">Kuva</label> <!-- <input type="file" id="ekuva" th:field="*{tiedosto}" /> -->
+					<!-- <input type="file" id="ekuva" accept="image/png, image/jpeg"  th:field="*{tiedosto}" /> -->
+
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="Tallenna"></input>
+	</form>
 
 
 </body>

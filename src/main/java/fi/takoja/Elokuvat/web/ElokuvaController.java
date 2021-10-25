@@ -44,8 +44,11 @@ public class ElokuvaController {
     }
         
 	@PostMapping("/tallenna")
-    public String tallennaElokuva(Elokuva elokuva){
-        erepository.save(elokuva);
+    public String tallennaElokuva(@Valid Elokuva elokuva, BindingResult bindingResult){
+		if (bindingResult.hasErrors()) {
+        	return "/lisaaelokuva";
+        }		
+		erepository.save(elokuva);
         return "redirect:/index";
     }
 	
@@ -70,7 +73,7 @@ public class ElokuvaController {
     }
 	
     @GetMapping("/poista/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('PAAKAYTTAJA')")
     public String poistaElokuva(@PathVariable("id") Long elokuvaId, Model model) {
     	erepository.deleteById(elokuvaId);
         return "redirect:/index";
@@ -93,14 +96,14 @@ public class ElokuvaController {
 	@PostMapping("/ktallenna")
     public String tallennaKategoria(Kategoria kategoria){
         krepository.save(kategoria);
-        return "/kategorialistaus";
+        return "redirect:/kategorialistaus";
     }
 	
     @GetMapping("/kpoista/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('PAAKAYTTAJA')")
     public String poistaKategoria(@PathVariable("id") Long kategoriaId, Model model) {
-    	erepository.deleteById(kategoriaId);
-        return "redirect:/index";
+    	krepository.deleteById(kategoriaId);
+        return "redirect:/kategorialistaus";
     }
     
     @GetMapping("/kmuokkaa/{id}")
@@ -118,7 +121,7 @@ public class ElokuvaController {
             return "/muokkaakategoria";
         }            
         krepository.save(kategoria);
-        return "/kategorialistaus";
+        return "redirect:/kategorialistaus";
     }
     
     // Formaattihallinta
@@ -138,19 +141,19 @@ public class ElokuvaController {
 	@PostMapping("/ftallenna")
     public String tallennaFormaatti(Formaatti formaatti){
         frepository.save(formaatti);
-        return "/formaattilistaus";
+        return "redirect:/formaattilistaus";
     }
 	
     @GetMapping("/fpoista/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('PAAKAYTTAJA')")
     public String poistaFormaatti(@PathVariable("id") Long formaattiId, Model model) {
-    	erepository.deleteById(formaattiId);
-        return "/formaattilistaus";
+    	frepository.deleteById(formaattiId);
+        return "redirect:/formaattilistaus";
     }
     
     @GetMapping("/fmuokkaa/{id}")
     public String muokkaaFormaatti(@PathVariable("id") Long formaattiId, Model model){
-    	Formaatti formaatti= frepository.findById(formaattiId)
+    	Formaatti formaatti = frepository.findById(formaattiId)
     			.orElseThrow(() -> new IllegalArgumentException("Väärä formaatti ID:" + formaattiId));
     	model.addAttribute("formaatti", formaatti);
         return "/muokkaaformaatti";
@@ -163,7 +166,7 @@ public class ElokuvaController {
             return "/muokkaaformaatti";
         }            
         frepository.save(formaatti);
-        return "/formaattilistaus";
+        return "redirect:/formaattilistaus";
     }
 	
 //	@PostMapping("/profile-picture")
