@@ -7,6 +7,15 @@
 	th:href="@{css/tyylit.css}" />
 </head>
 <body>
+
+	<div>
+		<form th:action="@{/logout}" method="post" action="">
+			<input type="submit" value="Kirjaudu ulos" class="" />
+		</form>
+	</div>
+	<br>
+	<a href="javascript:history.back()">Takaisin</a>
+	<br>
 	<h1>Lisää elokuva</h1>
 
 	<form th:object="${elokuva}" th:action="@{tallenna}" action="#"
@@ -28,7 +37,7 @@
 						<option th:each="kategoria: ${luokat}"
 							th:value="${kategoria.kategoriaid}"
 							th:text="${kategoria.kategorianimi}"></option>
-					</select></td>
+				</select></td>
 			</tr>
 			<tr>
 				<td><label for="eimdb">IMDb</label></td>
@@ -38,15 +47,16 @@
 				<td><label for="evuosi">Vuosi</label></td>
 				<td><input type="text" id="evuosi" th:field="*{vuosi}" /></td>
 				<!-- <td th:if="${#fields.hasErrors(’vuosi')}" th:errors="*{vuosi}">Virheellinen vuosiluku (4 numeroa)</td> -->
-				<td th:if="${#fields.hasErrors('vuosi')}" th:errors="*{vuosi}">Vuosi väärin</td>
+				<td th:if="${#fields.hasErrors('vuosi')}" th:errors="*{vuosi}">Vuosi
+					väärin</td>
 			</tr>
 			<tr>
 				<td><label for="eformaatti">Formaatti</label></td>
-				<td>
-				<select id="eformaatti" th:field="*{formaatti}">
-					<option th:each="formaatti: ${formaatit}" th:value="${formaatti.formaattiid}" th:text="${formaatti.formaattinimi}"></option>
-				</select>
-				</td>
+				<td><select id="eformaatti" th:field="*{formaatti}">
+						<option th:each="formaatti: ${formaatit}"
+							th:value="${formaatti.formaattiid}"
+							th:text="${formaatti.formaattinimi}"></option>
+				</select></td>
 			</tr>
 			<tr>
 				<td><label for="ekuva">Kuva</label> <!-- <input type="file" id="ekuva" th:field="*{tiedosto}" /> -->

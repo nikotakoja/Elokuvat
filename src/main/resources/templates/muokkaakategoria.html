@@ -1,22 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>takoja.fi - Muokkaa kategoriaa</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+<title>takoja.fi - Muokkaa kategoriaa</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="../css/tyylit.css"
+	th:href="@{../css/tyylit.css}" />
 </head>
 <body>
-	<h1>Muokkaa kategoriaa</h1>
-	
-		<form th:object="${kategoria}" th:action="@{/kmuokkaa/{id}(id=${kategoria.kategoriaid})}" action="#" method="post" enctype="multipart/form-data">
-		
-		  	<label for="kotsikko">Kategoria</label>
-			<input type="text" id="kategorianimi" th:field="*{kategorianimi}" />
+	<div>
+		<form th:action="@{/logout}" method="post" action="">
+			<input type="submit" value="Kirjaudu ulos" class="" />
+		</form>
+	</div>
+	<br>
+	<a href="javascript:history.back()">Takaisin</a>
+	<br>
+	<br>
+	<div>
+		<form th:object="${kategoria}"
+			th:action="@{/kmuokkaa/{id}(id=${kategoria.kategoriaid})}" action="#"
+			method="post" enctype="multipart/form-data">
+
+			<label for="kotsikko">Nimi</label> <input type="text"
+				id="kategorianimi" th:field="*{kategorianimi}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-		  				
+
 			<input type="submit" value="Tallenna"></input>
 		</form>
-
+	</div>
 
 </body>
 </html>

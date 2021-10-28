@@ -29,10 +29,11 @@ public class Formaatti {
 		super();
 		this.formaattinimi = formaattinimi;
 	}
-	
-	public Formaatti(long formaattiid) {
+
+	public Formaatti(long formaattiid, String formaattinimi) {
 		super();
 		this.formaattiid = formaattiid;
+		this.formaattinimi = formaattinimi;
 	}
 	
 	public Formaatti(long formaattiid, String formaattinimi, List<Elokuva> elokuvat) {
@@ -40,7 +41,15 @@ public class Formaatti {
 		this.formaattiid = formaattiid;
 		this.formaattinimi = formaattinimi;
 		this.elokuvat = elokuvat;
+	}
+	
+	
+	public List<Elokuva> getElokuvat() {
+		return elokuvat;
+	}
 
+	public void setElokuvat(List<Elokuva> elokuvat) {
+		this.elokuvat = elokuvat;
 	}
 
 	public long getFormaattiid() {
@@ -57,14 +66,6 @@ public class Formaatti {
 
 	public void setFormaattinimi(String formaattinimi) {
 		this.formaattinimi = formaattinimi;
-	}
-
-	public List<Elokuva> getElokuvat() {
-		return elokuvat;
-	}
-
-	public void setElokuvat(List<Elokuva> elokuvat) {
-		this.elokuvat = elokuvat;
 	}
 
 	@Override

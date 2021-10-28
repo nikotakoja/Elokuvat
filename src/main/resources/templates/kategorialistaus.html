@@ -1,43 +1,45 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>takoja.fi - Katergoriat</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="css/tyylit.css" th:href="@{css/tyylit.css}" />
+<title>takoja.fi - Katergoriat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/tyylit.css"
+	th:href="@{css/tyylit.css}" />
 </head>
 <body>
 
-<h1>Kategorialistaus</h1>
-
-<div style="padding:20px 0">
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Kirjaudu ulos" class=""/>
+	<div>
+		<form th:action="@{/logout}" method="post" action="">
+			<input type="submit" value="Kirjaudu ulos" class="" />
+		</form>
+	</div>
+	<br>
+	<a href="javascript:history.back()">Takaisin</a>
+	<br>
+	<table>
+		<tr>
+			<th class="paa">Luokat</th>
+		</tr>
+		<tr th:each="kategoria : ${kategoria}">
+			<td class="paa" th:text="${kategoria.kategorianimi}"></td>
+			<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
+				<form th:action="@{/kpoista/{id}(id=${kategoria.kategoriaid})}"
+					action="">
+					<button type="submit">Poista</button>
+				</form>
+			</td>
+			<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
+				<form th:action="@{/kmuokkaa/{id}(id=${kategoria.kategoriaid})}"
+					action="">
+					<button type="submit">Muokkaa</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<form sec:authorize="hasAuthority('PAAKAYTTAJA')" action="/klisaa">
+		<button type="submit">Lisää luokka</button>
 	</form>
-</div>
 
-<table>	
-	<tr>
-	    
-	    <th class="paa">Kategoria</th>
-	</tr>
-	<tr th:each = "kategoria : ${kategoria}">
-    		<td class="paa" th:text="${kategoria.kategorianimi}"></td>
-    		<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
-    			<form th:action="@{/kpoista/{id}(id=${kategoria.kategoriaid})}">
-		    		<button type="submit">Poista</button>
-		    	</form>
-		    </td>
-    		<td class="paa" sec:authorize="hasAuthority('PAAKAYTTAJA')">
-    			<form th:action="@{/kmuokkaa/{id}(id=${kategoria.kategoriaid})}">
-    				<button type="submit">Muokkaa</button>
-    			</form>
-    		</td>	
-    </tr>
-</table>
-
-<form sec:authorize="hasAuthority('PAAKAYTTAJA')" action="/klisaa">
-	<button type="submit">Lisää kategoria</button>
-</form>
-    
 </body>
 </html>

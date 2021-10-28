@@ -1,49 +1,64 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>takoja.fi - Muokkaa elokuvaa</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="../css/tyylit.css" th:href="@{../css/tyylit.css}" />
+<title>takoja.fi - Muokkaa elokuvaa</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="../css/tyylit.css"
+	th:href="@{../css/tyylit.css}" />
 </head>
 <body>
-	<h1>Muokkaa elokuvaa</h1>
 	<div>
-		<form th:object="${elokuva}" th:action="@{/muokkaa/{id}(id=${elokuva.id})}" action="#" method="post" enctype="multipart/form-data">
-		  	  	
-		  	<label for="eotsikko">Otsikko</label>
-			<input type="text" id="eotsikko" th:field="*{otsikko}" />	
-		  	<div style="clear: both; display: block; height: 10px;"></div>
-		  	
-		  	<label for="eohjaaja">Ohjaaja</label>
-			<input type="text" id="eohjaaja" th:field="*{ohjaaja}" />
+		<form th:action="@{/logout}" method="post" action="">
+			<input type="submit" value="Kirjaudu ulos" class="" />
+		</form>
+	</div>
+	<br>
+	<a href="javascript:history.back()">Takaisin</a>
+	<br>
+	<br>
+	<div>
+		<form th:object="${elokuva}"
+			th:action="@{/muokkaa/{id}(id=${elokuva.id})}" action="#"
+			method="post" enctype="multipart/form-data">
+
+			<label for="eotsikko">Otsikko</label> <input type="text"
+				id="eotsikko" th:field="*{otsikko}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="ekategoria">Luokka</label>
-			<select id="kategoria" th:field="*{kategoria.kategoriaid}">
-       			<option th:each="kategoria: ${luokat}" th:value="${kategoria.kategoriaid}" th:text="${kategoria.kategorianimi}"></option>
-    		</select>
-    		<div style="clear: both; display: block; height: 10px;"></div>
-		  	
-		  	<label for="eimdb">IMDb</label>
-			<input type="text" id="eimdb" th:field="*{imdb}" />
+
+			<label for="eohjaaja">Ohjaaja</label> <input type="text"
+				id="eohjaaja" th:field="*{ohjaaja}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
-			
-		  	<label for="evuosi">Vuosi</label>
-			<input type="text" id="evuosi" th:field="*{vuosi}" />
+
+			<label for="ekategoria">Luokka</label> <select id="kategoria"
+				th:field="*{kategoria.kategoriaid}">
+				<option th:each="kategoria: ${luokat}"
+					th:value="${kategoria.kategoriaid}"
+					th:text="${kategoria.kategorianimi}"></option>
+			</select>
 			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="eformaatti">Formaatti</label>
-			<select id="eformaatti" th:field="*{formaatti}">
-       			<option th:each="formaatti: ${formaatit}" th:value="${formaatti.formaattiid}" th:text="${formaatti.formaattinimi}"></option>
-    		</select>
-    		<div style="clear: both; display: block; height: 10px;"></div>
-						
+
+			<label for="eimdb">IMDb</label> <input type="text" id="eimdb"
+				th:field="*{imdb}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="evuosi">Vuosi</label> <input type="text" id="evuosi"
+				th:field="*{vuosi}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="eformaatti">Formaatti</label> <select id="eformaatti"
+				th:field="*{formaatti}">
+				<option th:each="formaatti: ${formaatit}"
+					th:value="${formaatti.formaattiid}"
+					th:text="${formaatti.formaattinimi}"></option>
+			</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+
 			<label for="ekuva">Kuva</label>
 			<!-- <input type="file" id="ekuva" th:field="*{tiedosto}" /> -->
 			<!-- <input type="file" id="ekuva" accept="image/png, image/jpeg"  th:field="*{tiedosto}" /> -->
-			
+
 			<div style="clear: both; display: block; height: 10px;"></div>
-			
+
 			<input type="submit" value="Tallenna"></input>
 		</form>
 	</div>

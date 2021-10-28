@@ -21,10 +21,10 @@ public class Elokuva {
 	@Size(max=100)
 	private String otsikko;
 	
-	@Size(min=1, max=50)
+	@Size(max=50)
 	private String ohjaaja;
 	
-	@Size(min=1, max=250)
+	@Size(max=250)
 	private String imdb;
 	
 	@NotNull

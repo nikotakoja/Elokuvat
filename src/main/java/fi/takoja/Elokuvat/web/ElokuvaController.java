@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import fi.takoja.Elokuvat.domain.Elokuva;
 import fi.takoja.Elokuvat.domain.ElokuvaRepository;
@@ -160,28 +161,9 @@ public class ElokuvaController {
     }
     
     @PostMapping("/fmuokkaa/{id}")
-    public String paivitaFormaatti(@PathVariable("id") long formaattiId, @Valid Formaatti formaatti, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-        	formaatti.setFormaattiid(formaattiId);
-            return "/muokkaaformaatti";
-        }            
+    public String paivitaFormaatti(@PathVariable("id") long formaattiid, @Valid Formaatti formaatti){
         frepository.save(formaatti);
         return "redirect:/formaattilistaus";
     }
-	
-//	@PostMapping("/profile-picture")
-//    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile imageFile, @ModelAttribute UserDTO requestDto) {
-//     try {
-//          UserDTO created  =userDetailsService.saveImg(requestDto, file.getBytes());
-//          return new ResponseEntity<>(created, HttpStatus.OK);
-//
-//    } catch (IOException e) {
-//        // TODO Auto-generated catch block
-//        e.printStackTrace();
-//    }    
-//    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//}
-    
-
 
 }
